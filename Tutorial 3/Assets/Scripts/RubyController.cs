@@ -34,6 +34,7 @@ public class RubyController : MonoBehaviour
     public AudioClip winSound;
     public AudioClip loseSound;
     public AudioClip background;
+    public AudioClip pickupSound;
 
     // Paricle System
     public ParticleSystem healthIncrease;
@@ -46,6 +47,11 @@ public class RubyController : MonoBehaviour
     public GameObject newScene;
     public TextMeshProUGUI cogText;
     private int totalScore = 0;
+
+    // Speed pickup
+    private bool isSpeeding;
+    private float speedTimer;
+    private float timeSpeeding = 5.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +81,19 @@ public class RubyController : MonoBehaviour
             invincibleTimer -= Time.deltaTime;
             if (invincibleTimer < 0)
                 isInvincible = false;
+        }
+
+        if (isSpeeding)
+        {
+            speed = 6.0f;
+            speedTimer -= Time.deltaTime; 
+
+            if (speedTimer <= 0)
+                isSpeeding = false;
+        }
+
+        if (!isSpeeding) {
+            speed = 3.0f;
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -148,6 +167,14 @@ public class RubyController : MonoBehaviour
         rigidbody2d.MovePosition(position);
     }
 
+    public void ChangeSpeed(int velocity) {
+        if (velocity > 0)
+        {
+            isSpeeding = true;
+            speedTimer = timeSpeeding;
+        }
+    }
+
     public void ChangeHealth(int amount)
     {
         if (amount < 0)
@@ -211,6 +238,7 @@ public class RubyController : MonoBehaviour
 
         if (other.collider.tag == "Cogs")
         {
+            PlaySound(pickupSound);
             cogs += 4;
             ChangeCogs(cogs);
             Destroy(other.collider.gameObject);

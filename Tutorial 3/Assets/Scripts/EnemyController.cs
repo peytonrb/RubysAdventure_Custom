@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public float changeTime = 3.0f;
     public ParticleSystem smokeEffect;
     public int damage;
+    public bool takesThree;
     Rigidbody2D rigidbody2D;
     float timer;
     int direction = 1;
@@ -29,7 +30,6 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        //remember ! inverse the test, so if broken is true !broken will be false and return won’t be executed.
         if (!broken)
         {
             return;
@@ -46,7 +46,6 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //remember ! inverse the test, so if broken is true !broken will be false and return won’t be executed.
         if (!broken)
         {
             return;
@@ -77,7 +76,7 @@ public class EnemyController : MonoBehaviour
         if (player != null)
         {
             player.ChangeHealth(-(damage));
-        }
+        } 
     }
 
     //Public because we want to call it from elsewhere like the projectile script
