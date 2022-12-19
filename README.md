@@ -1,2 +1,3 @@
-# DIG4715-Spring2021-0377
-Template for Game Production
+# Ruby's Adventure - Custom Game
+Custom 2D Game built on Unity and coded in C#. 
+https://play.unity.com/mg/other/tutorial3_webglbuild
